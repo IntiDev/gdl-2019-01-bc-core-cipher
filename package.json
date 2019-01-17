@@ -12,11 +12,11 @@
     "test": "npm run test-node --silent && npm run test-browser"
   },
   "dependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "eslint": "^5.9.0",
     "htmlhint": "^0.10.1",
     "mocha": "^5.1.1",
     "nyc": "^13.1.0",
-    "opener": "^1.4.3"
+    "opener": "^1.5.1"
   }
 }
