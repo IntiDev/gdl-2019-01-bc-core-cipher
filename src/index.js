@@ -1,48 +1,41 @@
-let string = document.getElementById("message").value.toUpperCase();
-let offset = parseInt(document.getElementById("offset").value);
-//string = string.toUpperCase();
+let string = document.getElementById("message");
+let offset = document.getElementById("offset");
 
-function validarOffset(offset){
-    console.log("validando: " + offset);
-	
-		if (offset === 0 || offset < 0){
-			//alert("Se aplicará offset por defaut de 33");
-			offset = 33;
-			//console.log("Offset x default: " + offset);
-			//window.cipher.encode(33,string);
-			//window.cipher.decode(33, string);
-			return offset;
-		} else {
-			alert("Se ha aplicado tu offset ;)");
-			//console.log("offset dinámico xD");
-			//return position;
-			return window.cipher.createCipherWithOffset(offset);
-		}
-  }
-
-/*function paintMsn(msnOutput){
-	let container = document.getElementById("codeMsn");
-	container.innerHTML = msnOutput;
+function validateOffset(offset) {
+	offset = parseInt(offset);
+	if (offset <= 0) {
+		alert("Se aplicará offset por default de 33 \n Recuerda que el offset debe ser un número positivo ;)");
+		return 33;
+	} else {
+		alert("Se ha aplicado tu offset ;)");
+		return offset;
+	}
 }
-*/
-validarOffset(offset, string);
 
-let btnEncode = document.getElementById("btnEncode");
-btnEncode.addEventListener("click", function(){
-	//console.log("btnEncode");
-	let result = cipher.encode(offset,string);//***************** */
+function printMsn(msnOutput, msnAction) {
 	let container = document.getElementById("codeMsn");
 	let showMessage = document.getElementById("showMessage");
-	showMessage.innerHTML = "Mensaje cifrado";
-	container.innerHTML = result;
+	showMessage.innerHTML = msnAction;
+	container.innerHTML = msnOutput;
+}
+
+function clearInputs() {
+	string.value = "";
+	offset.value = 0;
+}
+
+let btnEncode = document.getElementById("btnEncode");
+btnEncode.addEventListener("click", () => {
+	offset.value = validateOffset(offset.value);
+	let result = cipher.createCipherWithOffset(offset.value).encode(string.value.toUpperCase());
+	printMsn(result,"Mensaje cifrado");
+	clearInputs();
 });
 
 let btnDecode = document.getElementById("btnDecode");
-btnDecode.addEventListener("click", function(){
-	//console.log("btnDecode");
-	let container = document.getElementById("codeMsn");
-	let result = cipher.decode(offset,string); //*********** */
-	let showMessage = document.getElementById("showMessage");
-	showMessage.innerHTML = "Mensaje descifrado";
-	container.innerHTML = result;
+btnDecode.addEventListener("click", () => {
+	offset.value = validateOffset(offset.value);
+	let result = cipher.createCipherWithOffset(offset.value).decode(string.value.toUpperCase());
+	printMsn(result, "Mensaje descifrado");
+	clearInputs();
 });
